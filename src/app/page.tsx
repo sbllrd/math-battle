@@ -126,8 +126,9 @@ export default function RootPage() {
             <Grid gap={2}>
                 {answerState !== AnswerState.unanswered &&
                     <Button 
-                        colorScheme='white' 
-                        variant='outline' 
+                        colorScheme='cyan'
+                        size='lg'
+                        variant='solid' 
                         onClick={handleNextTurnButtonClick}
                         rightIcon={<ArrowForwardIcon />}
                     >
