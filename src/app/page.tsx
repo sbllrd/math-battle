@@ -18,8 +18,8 @@ import Confetti from 'react-dom-confetti'
 import useSound from 'use-sound'
 
 const DEFAULT_GAME_SETTINGS: GameSettings = {
-    minNumber: 1,
-    maxNumber: 1,
+    minNumber: 100,
+    maxNumber: 999,
     numberCount: 2,
     operations: [Operation.addition]
 }
