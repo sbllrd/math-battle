@@ -15,10 +15,6 @@ import { useEffect, useState } from 'react'
 import Confetti from 'react-dom-confetti'
 import useSound from 'use-sound'
 
-interface RootPageProps {
-    children: React.ReactNode
-}
-
 const DEFAULT_GAME_SETTINGS: GameSettings = {
     minNumber: 1,
     maxNumber: 1,
@@ -31,7 +27,7 @@ const DEFAULT_PLAYERS: Player[] = [
     {id: 2, name: 'Declan', score: 0}
 ]
 
-export default function RootPage({children}: RootPageProps) {
+export default function RootPage() {
     const [currentQuestion, setCurrentQuestion] = useState<Question>()
     const [gameSettings, setGameSettings] = useState<GameSettings>(DEFAULT_GAME_SETTINGS)
     const [answerState, setAnswerState] = useState<AnswerState>(AnswerState.newGame)
