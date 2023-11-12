@@ -14,7 +14,6 @@ import { Box, Button, Center, Grid, Heading, Text, VStack } from '@chakra-ui/rea
 import { useEffect, useState } from 'react'
 import Confetti from 'react-dom-confetti'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import useSound from 'use-sound'
 
