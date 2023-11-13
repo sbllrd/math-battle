@@ -25,7 +25,7 @@ const DEFAULT_GAME_SETTINGS: GameSettings = {
     max_number: 300,
     number_count: 2,
     operations: [Operation.addition, Operation.subtraction],
-    rounds_count: 1
+    rounds_count: 5
 }
 
 const DEFAULT_PLAYERS: Player[] = [
@@ -37,7 +37,7 @@ export default function RootPage() {
     const [currentQuestion, setCurrentQuestion] = useState<Question>()
     const [gameSettings, setGameSettings] = useState<GameSettings>(DEFAULT_GAME_SETTINGS)
     const [answerState, setAnswerState] = useState<AnswerState>(AnswerState.newGame)
-    const [players, setPlayers] = useState<Player[]>(DEFAULT_PLAYERS)
+    const [players, setPlayers] = useState<Player[]>([])
     const [currentRound, setCurrentRound] = useState<number>(0)
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(-1)
     const [playCorrectSound] = useSound('/sounds/correct.mp3')
