@@ -47,7 +47,7 @@ export default function RootPage() {
     const { isOpen: isAddPlayerModalOpen, onOpen: openAddPlayerModal, onClose: closeAddPlayerModal } = useDisclosure()
     const { reward: answerReward } = useReward('answerReward', 'confetti', {
         elementCount: 200,
-        lifetime: 100
+        lifetime: 80
     });
     const { reward: resultsReward } = useReward('resultsReward', 'balloons', {
         elementCount: 20,
@@ -241,10 +241,9 @@ export default function RootPage() {
             }
             {currentQuestion &&
                 <Grid justifyContent='center' gap={4}>
-                    <div>{currentQuestion.correctAnswer}</div>
                     <VStack spacing={0}>
-                        <Text fontSize='medium'>Round {currentRound} of {gameSettings.rounds_count}</Text>
-                        <Heading textAlign='center' fontSize='large'>{players[currentPlayerIndex].name}&apos;s turn:</Heading>
+                        <Text fontSize='sm'>Round <b>{currentRound}</b> of {gameSettings.rounds_count}</Text>
+                        <Heading textAlign='center' fontSize='x-large'>{players[currentPlayerIndex].name}&apos;s turn:</Heading>
                     </VStack>
                     <NumberQuestion question={currentQuestion} />
                     <AnswerInput 

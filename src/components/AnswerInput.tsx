@@ -1,6 +1,6 @@
 import { AnswerState, Question } from "@/types"
-import { CheckIcon } from "@chakra-ui/icons"
-import { Input, InputGroup, InputRightAddon } from "@chakra-ui/react"
+import { CheckCircleIcon, CheckIcon } from "@chakra-ui/icons"
+import { Button, Grid, Input, InputGroup, InputRightAddon } from "@chakra-ui/react"
 import { useEffect, useRef, useState } from "react"
 
 const answerStateStyles = {
@@ -30,8 +30,14 @@ const NumberAnswerInput = ({ answerState, correctAnswer, onSubmit }: AnswerInput
     const maxLength = Math.max(4, correctAnswer.toString().length)
     
     const handleKeyPress = (event: any) => {
-        if(event.key === 'Enter' && answerState === AnswerState.unanswered){
-            inputValue && onSubmit(Number(inputValue))
+        if(event.key === 'Enter'){
+            handleSubmitAnswer()
+        }
+    }
+
+    const handleSubmitAnswer = () => {
+        if ( answerState === AnswerState.unanswered && inputValue) {
+            onSubmit(Number(inputValue))
         }
     }
 
@@ -48,47 +54,59 @@ const NumberAnswerInput = ({ answerState, correctAnswer, onSubmit }: AnswerInput
     }, [answerState])
 
     return (
-        <InputGroup>
-            <Input
-                onKeyDown={handleKeyPress}
-                onChange={handleOnChange}
-                value={inputValue}
-                pattern='[0-9]*'
-                type='text'
-                inputMode='numeric'
-                ref={inputRef}
-                readOnly={answerState !== AnswerState.unanswered}
-
-                autoFocus
-                bg='gray.800'
-                borderRadius='0'
-                borderTopColor='cyan.100'
-                borderTopWidth='3px'
-                color={answerStateStyles[answerState].color}
-                fontSize='5xl'
-                fontWeight='bold'
-                paddingTop={2}
-                size='lg'
-                textAlign='center'
-                variant='unstyled'
-                maxW='200px'
-            />
-            {answerState === AnswerState.incorrect &&
-                <InputRightAddon
-                    marginTop='40px'
+        <Grid>
+            <InputGroup>
+                <Input
+                    onKeyDown={handleKeyPress}
+                    onChange={handleOnChange}
+                    value={inputValue}
+                    pattern='[0-9]*'
+                    type='text'
+                    inputMode='numeric'
+                    ref={inputRef}
+                    readOnly={answerState !== AnswerState.unanswered}
+                    
+                    autoFocus
                     bg='gray.800'
-                    border='none'
-                    color='green.500'
+                    borderRadius='0'
+                    borderTopColor='cyan.100'
+                    borderTopWidth='3px'
+                    color={answerStateStyles[answerState].color}
+                    fontSize='5xl'
                     fontWeight='bold'
-                    position='absolute'
-                    width='80px'
-                    right='-80px'
+                    paddingTop={2}
+                    size='lg'
+                    textAlign='center'
+                    variant='unstyled'
+                    maxW='200px'
+                />
+                {answerState === AnswerState.incorrect &&
+                    <InputRightAddon
+                        marginTop='40px'
+                        bg='gray.800'
+                        border='none'
+                        color='green.500'
+                        fontWeight='bold'
+                        position='absolute'
+                        width='80px'
+                        right='-80px'
+                    >
+                        <CheckIcon w={2} h={2  } mr={1} />
+                        {correctAnswer}
+                    </InputRightAddon>
+                }
+            </InputGroup>
+            {answerState === AnswerState.unanswered && inputValue &&
+                <Button
+                    leftIcon={<CheckCircleIcon w={6} h={6} color='cyan.500' />}
+                    onClick={handleSubmitAnswer} 
+                    aria-label='Submit answer'
+                    size='lg'
                 >
-                    <CheckIcon w={2} h={2  } mr={1} />
-                    {correctAnswer}
-                </InputRightAddon>
+                    SUBMIT
+                </Button>
             }
-        </InputGroup>
+        </Grid>
     )
 }
 
