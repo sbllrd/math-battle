@@ -47,7 +47,7 @@ const AddPlayerModal = ({
                     <Input ref={initialRef} value={playerName} onChange={(e) => setPlayerName(e.currentTarget.value)} onKeyDown={handleKeyPress} />
                 </ModalBody>
                 <ModalFooter justifyContent='center'>
-                    <Button onClick={handleAddPlayerButtonClick} variant='solid' colorScheme='cyan'>Add Player</Button>
+                    {playerName && <Button onClick={handleAddPlayerButtonClick} width='full' variant='solid' colorScheme='cyan'>Add {playerName}</Button>}
                 </ModalFooter>
             </ModalContent>
         </Modal>

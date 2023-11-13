@@ -95,7 +95,7 @@ const SettingsModal = ({
                     } */}
                 </ModalBody>
                 <ModalFooter justifyContent='center'>
-                    <Button onClick={onClose}>Close</Button>
+                    <Button width='full' onClick={onClose}>Save & Close</Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>

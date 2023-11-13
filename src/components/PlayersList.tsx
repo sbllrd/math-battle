@@ -50,7 +50,7 @@ const PlayersList = ({ allowAddNewPlayer, currentPlayerIndex, handleAddPlayerBut
                     onClick={handleAddPlayerButtonClick}
                     leftIcon={<AddIcon />}
                 >
-                    Add Player
+                    Add New Player
                 </Button>
             }
         </Grid>
