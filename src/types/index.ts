@@ -6,8 +6,8 @@ export enum AnswerState {
 }
 
 export enum Operation {
-    addition,
-    subtraction
+    addition = 'addition',
+    subtraction = 'subtraction'
 }
 
 export interface Question {
@@ -17,11 +17,11 @@ export interface Question {
 }
 
 export interface GameSettings {
-    maxNumber: number
-    minNumber: number
-    numberCount: number
+    max_number: number
+    min_number: number
+    number_count: number
     operations: Operation[]
-    roundsCount: number
+    rounds_count: number
 }
 
 export interface Player {

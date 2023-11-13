@@ -10,7 +10,7 @@ export const theme = extendTheme({
             'body': {
                 // bg: 'transparent'
                 color: 'cyan.100',
-                bgGradient: 'linear(to-br, gray.900, purple.900)',
+                bgGradient: 'linear(to-br, gray.900, blue.900 )',
             }
         },
     },

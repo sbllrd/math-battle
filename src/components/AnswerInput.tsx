@@ -67,7 +67,6 @@ const NumberAnswerInput = ({ answerState, correctAnswer, onSubmit }: AnswerInput
                 color={answerStateStyles[answerState].color}
                 fontSize='5xl'
                 fontWeight='bold'
-                marginTop={4}
                 paddingTop={2}
                 size='lg'
                 textAlign='center'

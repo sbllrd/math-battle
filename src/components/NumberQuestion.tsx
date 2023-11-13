@@ -1,17 +1,27 @@
 import { Box, Center, Grid } from "@chakra-ui/react"
 import OperationSymbol from "./OperationSymbol"
 import { Question } from "@/types"
+import { useState } from "react"
 
 interface NumberQuestionProps {
     question: Question
 }
 
 const NumberQuestion = ({ question }: NumberQuestionProps) => {
+    const [verticalOrientation, setVerticalOrientation] = useState(true)
+    const handleNumbersOnClick = () => {
+        setVerticalOrientation(!verticalOrientation)
+    }
     return (
         <Center>
-            <Grid gap={0}>
+            <Grid gap={0} onClick={handleNumbersOnClick}>
                 {question?.numbers?.map((number, index) => (
-                    <Grid key={index} position='relative' alignItems='center' justifyContent='center'>
+                    <Grid 
+                        key={index} 
+                        position='relative' 
+                        alignItems='center' 
+                        justifyContent='end'
+                    >
                         {index === question.numbers.length - 1  && 
                             <Box 
                                 display='inline'

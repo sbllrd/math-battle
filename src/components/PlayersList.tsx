@@ -1,30 +1,16 @@
 import { Player } from "@/types"
-import { ArrowRightIcon } from "@chakra-ui/icons"
-import { Box, Grid, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
+import { AddIcon, ArrowRightIcon } from "@chakra-ui/icons"
+import {  Button, Grid, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 
 interface PlayersListProps {
     currentPlayerIndex: number
+    handleAddPlayerButtonClick: () => void
     players: Player[]
+    allowAddNewPlayer: boolean
 }
-const PlayersList = ({ currentPlayerIndex, players }: PlayersListProps) => {
-    // return (
-    //     <Grid
-            // borderBottomColor='gray.700' 
-            // borderBottomStyle='dotted'
-            // borderBottomWidth='3px' 
-            // borderTopColor='gray.700' 
-            // borderTopStyle='dotted'
-            // borderTopWidth='3px'
-            // py={2} 
-    //     >
-    //         {players?.map(({id, name, score}, index) => (
-    //             <Box key={id}>{currentPlayerIndex === index && <StarIcon />} {name} - {score}</Box>
-    //         ))}
-    //     </Grid>
-    // )
-
+const PlayersList = ({ allowAddNewPlayer, currentPlayerIndex, handleAddPlayerButtonClick, players }: PlayersListProps) => {
     return (
-        <TableContainer
+        <Grid
             borderBottomColor='gray.700' 
             borderBottomStyle='dotted'
             borderBottomWidth='3px' 
@@ -32,26 +18,41 @@ const PlayersList = ({ currentPlayerIndex, players }: PlayersListProps) => {
             borderTopStyle='dotted'
             borderTopWidth='3px'
             py={2}  
+            gap={3}
         >
-            <Table size='xs' fontSize='small' variant='unstyled'>
-                <Thead color='gray.600'>
-                <Tr>
-                    <Th width='10px'></Th>
-                    <Th>Name</Th>
-                    <Th>Score</Th>
-                </Tr>
-                </Thead>
-                <Tbody>
-                {players?.map(({ id, name, score }, index) => (
-                    <Tr key={id}>
-                        <Td width='10px'>{index === currentPlayerIndex && <ArrowRightIcon w={2} h={2} />}</Td>
-                        <Td>{name}</Td>
-                        <Td fontWeight='bold'>{score}</Td>
+            {allowAddNewPlayer && <Heading size='xs'>PLAYERS</Heading>}
+            <TableContainer>
+                <Table size='xs' fontSize='small' variant='unstyled'>
+                    <Thead color='gray.600' fontSize='xs'>
+                    <Tr>
+                        <Th width='10px'></Th>
+                        <Th>Name</Th>
+                        <Th>Score</Th>
                     </Tr>
-                ))}
-                </Tbody>
-            </Table>
-        </TableContainer>
+                    </Thead>
+                    <Tbody>
+                    {players?.map(({ id, name, score }, index) => (
+                        <Tr key={id}>
+                            <Td width='10px'>{index === currentPlayerIndex && <ArrowRightIcon w={2} h={2} />}</Td>
+                            <Td>{name}</Td>
+                            <Td fontWeight='bold'>{score}</Td>
+                        </Tr>
+                    ))}
+                    </Tbody>
+                </Table>
+            </TableContainer>
+            {allowAddNewPlayer && 
+                <Button 
+                    colorScheme='cyan'
+                    variant='solid'
+                    size='sm'
+                    onClick={handleAddPlayerButtonClick}
+                    leftIcon={<AddIcon />}
+                >
+                    Add Player
+                </Button>
+            }
+        </Grid>
     )
 }
 

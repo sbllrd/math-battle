@@ -1,3 +1,3 @@
-export const generateRandomNumberInRange = (minNumber: number, maxNumber: number) => {
-    return Math.floor(Math.random() * (maxNumber - minNumber + 1) + minNumber) 
+export const generateRandomNumberInRange = (min_number: number, max_number: number) => {
+    return Math.floor(Math.random() * (max_number - min_number + 1) + min_number) 
 }
