@@ -1,10 +1,10 @@
-import { AnswerState } from "@/types"
+import { GameStatus } from "@/types"
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons"
 import { Box, ScaleFade } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 
 interface AnimatedIconProps {
-    variant: AnswerState
+    variant: GameStatus
 }
 
 const AnimatedIcon = ({variant}: AnimatedIconProps) => { 
@@ -17,11 +17,11 @@ const AnimatedIcon = ({variant}: AnimatedIconProps) => {
 
     const getIconVariant = () => {
         switch (variant) {
-            case AnswerState.correct:
+            case GameStatus.correct:
                 return (
                     <CheckIcon {...defaultProps} color='green.500' />
                 )
-            case AnswerState.incorrect:
+            case GameStatus.incorrect:
                 return (
                     <CloseIcon {...defaultProps} color='red.500' />
                 )

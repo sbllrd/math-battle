@@ -1,8 +1,8 @@
-export enum AnswerState {
-    newGame,
-    unanswered,
-    correct,
-    incorrect
+export enum GameStatus {
+    newGame = 'newGame',
+    unanswered = 'unanswered',
+    correct = 'correct',
+    incorrect = 'incorrect'
 }
 
 export enum Operation {

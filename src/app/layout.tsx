@@ -1,6 +1,8 @@
 import Logo from "@/components/Logo"
 import { GlobalProviders } from "./global-providers"
-import { Box, Container, Heading } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
+import { useContext } from "react"
+import { GameContext } from "./game-provider"
 
 export const metadata = {
   title: 'Math Battle'

@@ -10,13 +10,10 @@ interface SettingsListProps {
 const SettingsList = ({ handleSettingsButtonClick, settings }: SettingsListProps) => {
     return (
         <Grid
-            borderBottomColor='gray.700' 
-            borderBottomStyle='dotted'
-            borderBottomWidth='3px' 
             borderTopColor='gray.700' 
             borderTopStyle='dotted'
             borderTopWidth='3px'
-            py={2}  
+            pt={3}  
             gap={3}
         >
             <Heading size='xs'>SETTINGS</Heading>

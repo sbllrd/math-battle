@@ -4,12 +4,12 @@ import AnimatedIcon from '@/components/AnimatedIcon'
 import AnswerInput from '@/components/AnswerInput'
 import PlayersList from '@/components/PlayersList'
 import NumberQuestion from '@/components/NumberQuestion'
-import { AnswerState, GameSettings, Operation, Player, Question } from '@/types'
+import { GameStatus, GameSettings, Operation, Player, Question } from '@/types'
 import { generateRandomNumbersArray } from '@/utils/generate-random-number-array'
 import { getRandomItemFromArray } from '@/utils/get-random-item-from-array'
 import { ArrowForwardIcon, TimeIcon } from '@chakra-ui/icons'
-import { Box, Button, Center, Flex, Grid, Heading, Text, VStack, useDisclosure } from '@chakra-ui/react'
-import { useState } from 'react'
+import { Box, Button, Center, Flex, Grid, GridItem, Heading, Text, VStack, useDisclosure } from '@chakra-ui/react'
+import { useContext, useState } from 'react'
 import { useStopwatch } from 'react-timer-hook';
 
 // @ts-ignore
@@ -19,6 +19,7 @@ import SettingsList from '@/components/SettingsList'
 import ResultsModal from '@/components/ResultsModal'
 import AddPlayerModal from '@/components/AddPlayerModal'
 import { useReward } from 'react-rewards'
+import { GameContext } from './game-provider'
 
 const DEFAULT_GAME_SETTINGS: GameSettings = {
     min_number: 50,
@@ -34,9 +35,9 @@ const DEFAULT_PLAYERS: Player[] = [
 ]
 
 export default function RootPage() {
+    const { gameStatus, setGameStatus} = useContext(GameContext)
     const [currentQuestion, setCurrentQuestion] = useState<Question>()
     const [gameSettings, setGameSettings] = useState<GameSettings>(DEFAULT_GAME_SETTINGS)
-    const [answerState, setAnswerState] = useState<AnswerState>(AnswerState.newGame)
     const [players, setPlayers] = useState<Player[]>([])
     const [currentRound, setCurrentRound] = useState<number>(0)
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(-1)
@@ -47,7 +48,7 @@ export default function RootPage() {
     const { isOpen: isAddPlayerModalOpen, onOpen: openAddPlayerModal, onClose: closeAddPlayerModal } = useDisclosure()
     const { reward: answerReward } = useReward('answerReward', 'confetti', {
         elementCount: 200,
-        lifetime: 80
+        lifetime: 100
     });
     const { reward: resultsReward } = useReward('resultsReward', 'balloons', {
         elementCount: 20,
@@ -76,6 +77,7 @@ export default function RootPage() {
     }
 
     const generateQuestion = () => {
+        setGameStatus(GameStatus.unanswered)
         resetQuestionTimer()
         stopQuestionTimer()
         const {number_count, min_number, max_number} = gameSettings
@@ -91,7 +93,6 @@ export default function RootPage() {
             operation,
             correctAnswer
         })
-        setAnswerState(AnswerState.unanswered)
         startQuestionTimer()
     }
 
@@ -104,7 +105,7 @@ export default function RootPage() {
         stopQuestionTimer()
         const elapsedTime = questionTimerTotalSeconds;
         const isCorrect = answer === currentQuestion?.correctAnswer
-        isCorrect ? setAnswerState(AnswerState.correct) : setAnswerState(AnswerState.incorrect)
+        isCorrect ? setGameStatus(GameStatus.correct) : setGameStatus(GameStatus.incorrect)
         if (isCorrect) {
             answerReward()
             playCorrectSound()
@@ -135,8 +136,15 @@ export default function RootPage() {
     }
 
     const startNewGame = () => {
+        const playersWithScoreReset = players.map((player) => {
+            return {
+                ...player,
+                score: 0
+            }
+        });
+        setPlayers(playersWithScoreReset)
         setCurrentQuestion(undefined)
-        setAnswerState(AnswerState.newGame)
+        setGameStatus(GameStatus.newGame)
         setCurrentRound(0)
         setCurrentPlayerIndex(-1)
         closeResultsModal()
@@ -161,6 +169,9 @@ export default function RootPage() {
     const getNextButtonText = () => {
         if (isLastTurn()) {
             return 'Finish Game'
+        }
+        else if (gameStatus === GameStatus.newGame) {
+            return `Start Game`
         }
         else {
             return `Start ${players[getNextPlayerIndex()].name}'s turn`
@@ -225,29 +236,51 @@ export default function RootPage() {
     }
 
     return (
-        <Grid gap={4} mb={16}>
+        <Grid mb={16}>
+            {gameStatus === GameStatus.newGame &&
+                <GridItem 
+                    textAlign='center'
+                    borderTopColor='gray.700' 
+                    borderTopStyle='dotted'
+                    borderTopWidth='3px'
+                    py={4}
+                >
+                    <Heading fontSize='x-large'>Welcome!</Heading>
+                    <Text>Add at least one player to start a game.</Text>
+                </GridItem>
+            }
             <PlayersList 
-                allowAddNewPlayer={answerState === AnswerState.newGame}
+                allowAddNewPlayer={gameStatus === GameStatus.newGame}
                 currentPlayerIndex={currentPlayerIndex} 
                 handleAddPlayerButtonClick={handleAddPlayerButtonClick} 
                 players={players} 
             />
-            {answerState === AnswerState.newGame && <SettingsList handleSettingsButtonClick={handleSettingsButtonClick} settings={gameSettings} />}
-            {answerState === AnswerState.newGame && players.length > 1 &&
-                <VStack>
-                    <Text fontWeight='bold'>New Game...</Text>
+            {gameStatus === GameStatus.newGame && <SettingsList handleSettingsButtonClick={handleSettingsButtonClick} settings={gameSettings} />}
+            {gameStatus === GameStatus.newGame && players.length > 0 &&
+                <VStack
+                    borderTopColor='gray.700' 
+                    borderTopStyle='dotted'
+                    borderTopWidth='3px'
+                    pt={4}
+                >
+                    <Text fontWeight='bold'>Ready to start?</Text>
                     <Heading>{players[getNextPlayerIndex()].name} goes first!</Heading>
                 </VStack>
             }
             {currentQuestion &&
-                <Grid justifyContent='center' gap={4}>
+                <Grid justifyContent='center' gap={4}
+                    borderTopColor='gray.700' 
+                    borderTopStyle='dotted'
+                    borderTopWidth='3px' 
+                    pt={4}
+                >
                     <VStack spacing={0}>
                         <Text fontSize='sm'>Round <b>{currentRound}</b> of {gameSettings.rounds_count}</Text>
                         <Heading textAlign='center' fontSize='x-large'>{players[currentPlayerIndex].name}&apos;s turn:</Heading>
                     </VStack>
                     <NumberQuestion question={currentQuestion} />
                     <AnswerInput 
-                        answerState={answerState}
+                        gameStatus={gameStatus}
                         correctAnswer={currentQuestion.correctAnswer}
                         onSubmit={handleAnswerSubmit}
                     /> 
@@ -260,15 +293,15 @@ export default function RootPage() {
                         </Center>
                     )}
                     <Center>
-                    {answerState !== AnswerState.unanswered && <AnimatedIcon variant={answerState} />}
+                    {gameStatus !== GameStatus.unanswered && <AnimatedIcon variant={gameStatus} />}
                     </Center>
                 </Grid>
             }
-            {players.length > 1 &&
-                <Grid gap={4}>
-                    {answerState !== AnswerState.unanswered &&
+            {players.length > 0 && 
+                <Grid gap={4} mt={4}>
+                    {gameStatus !== GameStatus.unanswered &&
                         <Button 
-                            colorScheme='cyan'
+                            colorScheme='green'
                             size='lg'
                             variant='solid' 
                             onClick={handleNextTurnButtonClick}

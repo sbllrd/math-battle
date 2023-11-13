@@ -1,30 +1,30 @@
-import { AnswerState, Question } from "@/types"
+import { GameStatus, Question } from "@/types"
 import { CheckCircleIcon, CheckIcon } from "@chakra-ui/icons"
 import { Button, Grid, Input, InputGroup, InputRightAddon } from "@chakra-ui/react"
 import { useEffect, useRef, useState } from "react"
 
-const answerStateStyles = {
-    [AnswerState.correct]: {
+const gameStatusStyles = {
+    [GameStatus.correct]: {
         color: 'green.400'
     },
-    [AnswerState.incorrect]: {
+    [GameStatus.incorrect]: {
         color: 'red.500'
     },
-    [AnswerState.unanswered]: {
+    [GameStatus.unanswered]: {
         color: 'white'
     },
-    [AnswerState.newGame]: {
+    [GameStatus.newGame]: {
         color: 'white'
     }
 }
 
 interface AnswerInputProps {
-    answerState: AnswerState
+    gameStatus: GameStatus
     correctAnswer: Question['correctAnswer']
     onSubmit: (answer: number) => void
 }
 
-const NumberAnswerInput = ({ answerState, correctAnswer, onSubmit }: AnswerInputProps) => {
+const NumberAnswerInput = ({ gameStatus, correctAnswer, onSubmit }: AnswerInputProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const [inputValue, setInputValue] = useState<string>('')
     const maxLength = Math.max(4, correctAnswer.toString().length)
@@ -36,7 +36,7 @@ const NumberAnswerInput = ({ answerState, correctAnswer, onSubmit }: AnswerInput
     }
 
     const handleSubmitAnswer = () => {
-        if ( answerState === AnswerState.unanswered && inputValue) {
+        if ( gameStatus === GameStatus.unanswered && inputValue) {
             onSubmit(Number(inputValue))
         }
     }
@@ -47,56 +47,55 @@ const NumberAnswerInput = ({ answerState, correctAnswer, onSubmit }: AnswerInput
     }
 
     useEffect(() => {
-        if (answerState === AnswerState.unanswered) {
+        if (gameStatus === GameStatus.unanswered) {
             setInputValue('')
             inputRef.current?.focus()
         }
-    }, [answerState])
+    }, [gameStatus])
 
     return (
         <Grid>
-            <InputGroup>
+            <InputGroup justifyContent='center'>
                 <Input
-                    onKeyDown={handleKeyPress}
-                    onChange={handleOnChange}
-                    value={inputValue}
-                    pattern='[0-9]*'
-                    type='text'
-                    inputMode='numeric'
-                    ref={inputRef}
-                    readOnly={answerState !== AnswerState.unanswered}
-                    
                     autoFocus
-                    bg='gray.800'
+                    bg={gameStatus !== GameStatus.unanswered ? 'transparent' : 'gray.800'}
                     borderRadius='0'
                     borderTopColor='cyan.100'
                     borderTopWidth='3px'
-                    color={answerStateStyles[answerState].color}
+                    color={gameStatusStyles[gameStatus].color}
                     fontSize='5xl'
                     fontWeight='bold'
+                    inputMode='numeric'
+                    maxW='200px'
+                    onChange={handleOnChange}
+                    onKeyDown={handleKeyPress}
                     paddingTop={2}
+                    pattern='[0-9]*'
+                    readOnly={gameStatus !== GameStatus.unanswered}
+                    ref={inputRef}
                     size='lg'
                     textAlign='center'
+                    textDecoration={gameStatus === GameStatus.incorrect ? 'line-through solid 4px' : 'unset'}
+                    textDecorationColor='whiteAlpha.00'
+                    type='text'
+                    value={inputValue}
                     variant='unstyled'
-                    maxW='200px'
                 />
-                {answerState === AnswerState.incorrect &&
+                {gameStatus === GameStatus.incorrect &&
                     <InputRightAddon
-                        marginTop='40px'
-                        bg='gray.800'
+                        bg='transparent'
                         border='none'
                         color='green.500'
                         fontWeight='bold'
                         position='absolute'
-                        width='80px'
-                        right='-80px'
+                        bottom='-26px'
+                        fontSize='xx-large'
                     >
-                        <CheckIcon w={2} h={2  } mr={1} />
                         {correctAnswer}
                     </InputRightAddon>
                 }
             </InputGroup>
-            {answerState === AnswerState.unanswered && inputValue &&
+            {gameStatus === GameStatus.unanswered && inputValue &&
                 <Button
                     leftIcon={<CheckCircleIcon w={6} h={6} color='cyan.500' />}
                     onClick={handleSubmitAnswer} 
