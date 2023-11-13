@@ -61,7 +61,15 @@ const ResultsModal = ({
                 </Flex>
                 </ModalBody>
                 <ModalFooter justifyContent='center'>
-                    <Button onClick={startNewGame} variant='solid' colorScheme='cyan'>New Game</Button>
+                    <Button 
+                        onClick={startNewGame} 
+                        variant='solid' 
+                        colorScheme='cyan' 
+                        size='lg' 
+                        width='full'
+                    >
+                            New Game
+                    </Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>
