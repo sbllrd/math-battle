@@ -2,7 +2,7 @@
 
 Go head-to-head against your opponent to correctly answer math problems the fastest! Now with 50% more balloons!
 
-## [Play Math Battle now!](https://math-battle.ballard.dev/)
+## [Play Math Battle now!](https://www.math-battle.com/)
 
 ### Local Development
 
