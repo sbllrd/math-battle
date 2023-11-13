@@ -8,9 +8,10 @@ export const theme = extendTheme({
                 color: 'cyan.50',
             },
             'body': {
-                // bg: 'transparent'
                 color: 'cyan.100',
-                bgGradient: 'linear(to-br, gray.900, blue.900 )',
+                bgImage: "linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)), url('/images/bg.jpg')",
+                bgPosition: "center",
+                bgRepeat: "no-repeat",
             }
         },
     },

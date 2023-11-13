@@ -301,7 +301,7 @@ export default function RootPage() {
                 <Grid gap={4} mt={4}>
                     {gameStatus !== GameStatus.unanswered &&
                         <Button 
-                            colorScheme='green'
+                            colorScheme='orange'
                             size='lg'
                             variant='solid' 
                             onClick={handleNextTurnButtonClick}

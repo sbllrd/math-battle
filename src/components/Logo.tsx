@@ -12,7 +12,7 @@ const Logo = () => {
     const isCompact = gameStatus !== GameStatus.newGame;
 
     const iconProps = {
-        color: 'gray.800',
+        color: 'blue.900',
         borderRadius: 'full',
         padding: 1,
         w: 6,
@@ -22,10 +22,10 @@ const Logo = () => {
         <Flex justifyContent='center' alignItems='center' flexDir='column' mt={isCompact ? 3 : 6}>
             {!isCompact &&
                 <Flex gap={2} width='fit-content'>
-                    <AddIcon {...iconProps} bgGradient='linear(to-br, purple.300, cyan.200)' />
-                    <MinusIcon {...iconProps} bgGradient='linear(to-tr, purple.300, cyan.200)' />
-                    <CloseIcon {...iconProps} bgGradient='linear(to-b, purple.300, cyan.200)' />
-                    <CheckIcon {...iconProps} bgGradient='linear(to-r, purple.300, cyan.200)' />
+                    <AddIcon {...iconProps} bgGradient='linear(to-br, yellow.300, orange.500)' />
+                    <MinusIcon {...iconProps} bgGradient='linear(to-tr, yellow.300, orange.500)' />
+                    <CloseIcon {...iconProps} bgGradient='linear(to-b, yellow.300, orange.500)' />
+                    <CheckIcon {...iconProps} bgGradient='linear(to-r, yellow.300, orange.500)' />
                 </Flex>
             }
 
@@ -34,7 +34,7 @@ const Logo = () => {
                 pt={isCompact ? 0 : 4}
                 pb={2}
                 textAlign='center'
-                bgGradient='linear(to-b, purple.100, cyan.500)'
+                bgGradient='linear(to-b, yellow.300, orange.500)'
                 bgClip='text'
                 fontFamily={`'Press Start 2P'`}
             >

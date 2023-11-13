@@ -97,12 +97,12 @@ const NumberAnswerInput = ({ gameStatus, correctAnswer, onSubmit }: AnswerInputP
             </InputGroup>
             {gameStatus === GameStatus.unanswered && inputValue &&
                 <Button
-                    leftIcon={<CheckCircleIcon w={6} h={6} color='cyan.500' />}
+                    leftIcon={<CheckCircleIcon w={6} h={6} color='orange.300' />}
                     onClick={handleSubmitAnswer} 
                     aria-label='Submit answer'
                     size='lg'
                 >
-                    SUBMIT
+                    Submit
                 </Button>
             }
         </Grid>

@@ -1,5 +1,5 @@
 import { Player } from "@/types"
-import { AddIcon, ArrowRightIcon } from "@chakra-ui/icons"
+import { AddIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import {  Button, Grid, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 
 interface PlayersListProps {
@@ -32,7 +32,7 @@ const PlayersList = ({ allowAddNewPlayer, currentPlayerIndex, handleAddPlayerBut
                             <Tbody>
                             {players?.map(({ id, name, score }, index) => (
                                 <Tr key={id}>
-                                    <Td width='10px'>{index === currentPlayerIndex && <ArrowRightIcon w={2} h={2} />}</Td>
+                                    <Td width='10px'>{index === currentPlayerIndex && <ChevronRightIcon w={4} h={4} />}</Td>
                                     <Td>{name}</Td>
                                     <Td fontWeight='bold'>{score}</Td>
                                 </Tr>
