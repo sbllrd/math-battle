@@ -1,13 +1,29 @@
-import { AddIcon } from "@chakra-ui/icons"
+import { Operation } from "@/types"
+import { AddIcon, MinusIcon } from "@chakra-ui/icons"
 
-const OperationSymbol = () => {
+interface OperationSymbolProps {
+    operation: Operation
+}
+
+const OperationSymbol = ({operation}: OperationSymbolProps) => {
     const defaultProps = {
         w: 6,
         h: 6
     }
-    return (
-        <AddIcon {...defaultProps} />
-    )
+
+    switch (operation) {
+        case Operation.addition:
+            return (
+                <AddIcon {...defaultProps} />
+            )
+        case Operation.subtraction:
+            return (
+                <MinusIcon {...defaultProps} />
+            )
+        default:
+            return <></>
+    }
+
 }
 
 export default OperationSymbol

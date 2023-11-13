@@ -37,7 +37,7 @@ const NumberAnswerInput = ({ answerState, correctAnswer, onSubmit }: AnswerInput
 
     const handleOnChange = (event: any) => {
         const newValue = event.currentTarget.value
-        newValue.length <= maxLength && setInputValue(newValue)
+        newValue.length <= maxLength && setInputValue(newValue.replace(/\D/g, ''))
     }
 
     useEffect(() => {
@@ -53,7 +53,9 @@ const NumberAnswerInput = ({ answerState, correctAnswer, onSubmit }: AnswerInput
                 onKeyDown={handleKeyPress}
                 onChange={handleOnChange}
                 value={inputValue}
-                type="number"
+                pattern='[0-9]*'
+                type='text'
+                inputMode='numeric'
                 ref={inputRef}
                 readOnly={answerState !== AnswerState.unanswered}
 

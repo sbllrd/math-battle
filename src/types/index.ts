@@ -17,10 +17,11 @@ export interface Question {
 }
 
 export interface GameSettings {
-    minNumber: number
     maxNumber: number
+    minNumber: number
     numberCount: number
     operations: Operation[]
+    roundsCount: number
 }
 
 export interface Player {

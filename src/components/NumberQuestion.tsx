@@ -2,23 +2,23 @@ import { Box, Center, Grid } from "@chakra-ui/react"
 import OperationSymbol from "./OperationSymbol"
 import { Question } from "@/types"
 
-interface NumbersQuestionProps {
+interface NumberQuestionProps {
     question: Question
 }
 
-const NumbersQuestion = ({ question }: NumbersQuestionProps) => {
+const NumberQuestion = ({ question }: NumberQuestionProps) => {
     return (
         <Center>
             <Grid gap={0}>
                 {question?.numbers?.map((number, index) => (
                     <Grid key={index} position='relative' alignItems='center' justifyContent='center'>
-                        {index != 0 && 
+                        {index === question.numbers.length - 1  && 
                             <Box 
                                 display='inline'
                                 position='absolute'
                                 left='-36px'
                             >
-                                <OperationSymbol />
+                                <OperationSymbol operation={question.operation} />
                             </Box>
                         }
                         <Box 
@@ -37,4 +37,4 @@ const NumbersQuestion = ({ question }: NumbersQuestionProps) => {
     )
 }
 
-export default NumbersQuestion
+export default NumberQuestion

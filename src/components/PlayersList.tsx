@@ -33,7 +33,7 @@ const PlayersList = ({ currentPlayerIndex, players }: PlayersListProps) => {
             borderTopWidth='3px'
             py={2}  
         >
-            <Table size='sm' variant='unstyled'>
+            <Table size='xs' fontSize='small' variant='unstyled'>
                 <Thead color='gray.600'>
                 <Tr>
                     <Th width='10px'></Th>
@@ -44,7 +44,7 @@ const PlayersList = ({ currentPlayerIndex, players }: PlayersListProps) => {
                 <Tbody>
                 {players?.map(({ id, name, score }, index) => (
                     <Tr key={id}>
-                        <Td width='10px'>{index === currentPlayerIndex && <ArrowRightIcon />}</Td>
+                        <Td width='10px'>{index === currentPlayerIndex && <ArrowRightIcon w={2} h={2} />}</Td>
                         <Td>{name}</Td>
                         <Td fontWeight='bold'>{score}</Td>
                     </Tr>

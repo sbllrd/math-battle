@@ -1,6 +1,7 @@
 'use client'
+
 import { AddIcon, CheckIcon, CloseIcon, MinusIcon } from '@chakra-ui/icons'
-import { Box, Flex, Grid, HStack, Heading } from '@chakra-ui/react'
+import { Flex, Heading } from '@chakra-ui/react'
 import '@fontsource/press-start-2p'
 
 const Logo = () => {
