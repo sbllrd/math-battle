@@ -255,6 +255,20 @@ export default function RootPage() {
 
     return (
         <Grid mb={16}>
+            {gameStatus !== GameStatus.newGame && 
+                <Button 
+                    size='xs' 
+                    variant='ghost' 
+                    colorScheme='cyan' 
+                    position='fixed' 
+                    bottom={2} 
+                    left={0} 
+                    width='full'
+                    onClick={startNewGame}
+                    py={2}
+                >
+                    Cancel Game
+                </Button>}
             {gameStatus === GameStatus.newGame &&
                 <GridItem 
                     textAlign='center'
@@ -263,8 +277,8 @@ export default function RootPage() {
                     borderTopWidth='3px'
                     py={4}
                 >
-                    <Heading fontSize='large'>Quick Solves & Epic Duels:</Heading>
-                    <Heading fontSize='large'>Welcome to Math Battle!</Heading>
+                    <Heading fontSize='x-large'>Quick Solves & Epic Duels:</Heading>
+                    <Heading fontSize='x-large'>Welcome to Math Battle!</Heading>
                     {players.length === 0 && <Text mt={2}>Add at least one player to start a battle.</Text>}
                 </GridItem>
             }
@@ -283,7 +297,7 @@ export default function RootPage() {
                     pt={4}
                 >
                     <Text fontWeight='bold'>Ready to start?</Text>
-                    <Heading>{players[getNextPlayerIndex()].name} goes first!</Heading>
+                    <Heading fontSize='x-large'>{players[getNextPlayerIndex()].name} goes first!</Heading>
                 </VStack>
             }
             {currentQuestion &&
