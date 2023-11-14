@@ -29,9 +29,10 @@ const DEFAULT_GAME_SETTINGS: GameSettings = {
     rounds_count: 5
 }
 
-const DEFAULT_PLAYERS: Player[] = [
-    {id: 1, name: 'Dad', score: 0},
-    {id: 2, name: 'Declan', score: 0}
+const TEST_PLAYERS: Player[] = [
+    {id: 1, name: 'Player 1', score: 0},
+    {id: 2, name: 'Player 2', score: 0},
+    {id: 3, name: 'Player 3', score: 0}
 ]
 
 export default function RootPage() {
@@ -121,9 +122,14 @@ export default function RootPage() {
             score: currentPlayer.score + thisQuestionScore
         }
 
-        console.log('updatedCurrentPlayer', updatedCurrentPlayer)
-
-        const updatedPlayers = players.with(currentPlayerIndex, updatedCurrentPlayer)
+        const updatedPlayers = players.map(player => {
+            if (player.id === updatedCurrentPlayer.id) {
+                return updatedCurrentPlayer
+            } else {
+                return player
+            }
+        })
+        
         setPlayers(updatedPlayers)
     }
 

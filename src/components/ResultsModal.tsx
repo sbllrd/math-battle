@@ -2,7 +2,6 @@ import { Player } from '@/types'
 import { StarIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, UseModalProps } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import { useReward } from 'react-rewards';
 // @ts-ignore
 import useSound from 'use-sound'
 
@@ -43,7 +42,7 @@ const ResultsModal = ({
             <ModalContent bg='gray.800' mx={4}>
                 <ModalHeader>Game Results</ModalHeader>
                 <ModalBody>
-                    {players.sort((a,b) => b.score - a.score).map((player, index) => (
+                    {[...players].sort((a,b) => b.score - a.score).map((player, index) => (
                         <Flex key={player.id} justifyContent='space-between' alignItems='center'>
                             <Flex 
                                 fontSize='x-large'
