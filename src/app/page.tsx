@@ -20,14 +20,24 @@ import ResultsModal from '@/components/ResultsModal'
 import AddPlayerModal from '@/components/AddPlayerModal'
 import { useReward } from 'react-rewards'
 import { GameContext } from './game-provider'
+import { useSearchParams } from 'next/navigation'
 
 const DEFAULT_GAME_SETTINGS: GameSettings = {
     min_number: 50,
     max_number: 300,
     number_count: 2,
-    operations: [Operation.addition, Operation.subtraction],
+    operations: [Operation.addition],
     rounds_count: 5
 }
+
+const TEST_GAME_SETTINGS: GameSettings = {
+    min_number: 1,
+    max_number: 1,
+    number_count: 2,
+    operations: [Operation.addition],
+    rounds_count: 5
+}
+
 
 const TEST_PLAYERS: Player[] = [
     {id: 1, name: 'Player 1', score: 0},
@@ -36,10 +46,12 @@ const TEST_PLAYERS: Player[] = [
 ]
 
 export default function RootPage() {
+    const searchParams = useSearchParams()
+    const isTest = searchParams.get('test') === 'true'
     const { gameStatus, setGameStatus} = useContext(GameContext)
     const [currentQuestion, setCurrentQuestion] = useState<Question>()
-    const [gameSettings, setGameSettings] = useState<GameSettings>(DEFAULT_GAME_SETTINGS)
-    const [players, setPlayers] = useState<Player[]>([])
+    const [gameSettings, setGameSettings] = useState<GameSettings>(isTest ? TEST_GAME_SETTINGS : DEFAULT_GAME_SETTINGS)
+    const [players, setPlayers] = useState<Player[]>(isTest ? TEST_PLAYERS : [])
     const [currentRound, setCurrentRound] = useState<number>(0)
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(-1)
     const [playCorrectSound] = useSound('/sounds/correct.mp3')
