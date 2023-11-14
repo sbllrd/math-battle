@@ -186,10 +186,10 @@ export default function RootPage() {
 
     const getNextButtonText = () => {
         if (isLastTurn()) {
-            return 'Finish Game'
+            return 'Finish Battle'
         }
         else if (gameStatus === GameStatus.newGame) {
-            return `Start Game`
+            return `Start Battle`
         }
         else {
             return `Start ${players[getNextPlayerIndex()].name}'s turn`
@@ -263,8 +263,9 @@ export default function RootPage() {
                     borderTopWidth='3px'
                     py={4}
                 >
-                    <Heading fontSize='x-large'>Welcome!</Heading>
-                    <Text>Add at least one player to start a game.</Text>
+                    <Heading fontSize='large'>Quick Solves & Epic Duels:</Heading>
+                    <Heading fontSize='large'>Welcome to Math Battle!</Heading>
+                    {players.length === 0 && <Text mt={2}>Add at least one player to start a battle.</Text>}
                 </GridItem>
             }
             <PlayersList 

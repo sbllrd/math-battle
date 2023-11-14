@@ -40,7 +40,7 @@ const ResultsModal = ({
         >
             <ModalOverlay />
             <ModalContent bg='gray.800' mx={4}>
-                <ModalHeader>Game Results</ModalHeader>
+                <ModalHeader>Battle Results</ModalHeader>
                 <ModalBody>
                     {[...players].sort((a,b) => b.score - a.score).map((player, index) => (
                         <Flex key={player.id} justifyContent='space-between' alignItems='center'>

@@ -1,6 +1,8 @@
 ![Logo](https://github.com/sbllrd/math-battle/blob/main/logo.jpg?raw=true)
 
-Go head-to-head against your opponent to correctly answer math problems the fastest! Now with 50% more balloons!
+## Quick Solves & Epic Duels: Welcome to Math Battle!
+
+Compete against your friends to correctly answer math problems the quickest! Now with 110% more balloons!
 
 ## [Play Math Battle now!](https://www.math-battle.com/)
 
