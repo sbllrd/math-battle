@@ -93,13 +93,14 @@ function GameProvider({ children }: GameProviderProps) {
     const startGame = async () => {
         await generatePlayerTurns({ gameSettings, players })
             .then((playerTurns) => {
-                if (playerTurns.length < 1) {
+                const numberOfTurns = playerTurns.length
+                if (numberOfTurns < 1) {
                     throw Error('Unable to start new game.')
                 }
                 setPlayerTurns(playerTurns)
                 setCurentTurnIndex(0)
                 setCurrentPlayerTurn(playerTurns[0])
-                setGameStatus(GameStatus.inProgress)
+                setGameStatus(numberOfTurns === 1 ? GameStatus.lastTurn : GameStatus.inProgress)
             })
     }
 
@@ -212,7 +213,7 @@ function GameProvider({ children }: GameProviderProps) {
     }, [currentPlayerTurn])
 
     useEffect(() => {
-        if (playerTurns && currentTurnIndex !== undefined && gameStatus !== GameStatus.lastTurn) {
+        if (playerTurns && playerTurns.length > 1 && currentTurnIndex !== undefined && gameStatus !== GameStatus.lastTurn) {
             setNextTurnPlayersName(playerTurns[currentTurnIndex + 1].player.name)
         }
     }, [currentTurnIndex])
