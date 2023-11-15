@@ -1,4 +1,4 @@
-import { GameStatus, Player } from "@/types"
+import { GameStatus } from "@/types"
 import { AddIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import {  Button, Grid, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react"
 import AddPlayerModal from "./AddPlayerModal"

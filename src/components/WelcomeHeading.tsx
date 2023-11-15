@@ -1,4 +1,4 @@
-import { Heading, Text, VStack } from "@chakra-ui/react"
+import { Heading, VStack } from "@chakra-ui/react"
 
 interface Props {
     heading: string

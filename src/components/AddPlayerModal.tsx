@@ -1,5 +1,4 @@
 import { GameContext } from '@/app/game-provider'
-import { Player } from '@/types'
 import { Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UseModalProps } from '@chakra-ui/react'
 import { useContext, useEffect, useRef, useState } from 'react'
 

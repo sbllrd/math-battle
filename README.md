@@ -4,7 +4,7 @@
 
 Compete against your friends to correctly answer math problems the quickest! Now with 110% more balloons!
 
-## [Play Math Battle now!](https://www.math-battle.com/)
+## [Play Math Battle now!](https://math-battle.com/)
 
 ### Local Development
 

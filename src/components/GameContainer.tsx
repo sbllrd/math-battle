@@ -1,8 +1,7 @@
 'use client'
 
-import PlayersList from '@/components/PlayersList'
 import { GameStatus } from '@/types'
-import { Button, Divider, Grid, Heading, Text, VStack } from '@chakra-ui/react'
+import { Button, Grid, Heading, Text, VStack } from '@chakra-ui/react'
 import { useContext } from 'react'
 
 import { GameContext } from '@/app/game-provider'

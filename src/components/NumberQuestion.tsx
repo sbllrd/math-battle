@@ -1,7 +1,6 @@
 import { Box, Center, Grid } from "@chakra-ui/react"
 import OperationSymbol from "./OperationSymbol"
 import { Question } from "@/types"
-import { useState } from "react"
 
 interface NumberQuestionProps {
     question: Question
