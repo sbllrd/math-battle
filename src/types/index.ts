@@ -1,6 +1,12 @@
 export enum GameStatus {
     newGame = 'newGame',
-    unanswered = 'unanswered',
+    inProgress = 'inProgress',
+    lastTurn = 'lastTurn',
+    finished = 'finished'
+}
+
+export enum QuestionStatus {
+    inProgress = 'inProgress',
     correct = 'correct',
     incorrect = 'incorrect'
 }
@@ -27,5 +33,14 @@ export interface GameSettings {
 export interface Player {
     id: number
     name: string
+}
+
+export interface PlayerTurn {
+    id: number
+    player: Player
+    question: Question
+    questionStatus: QuestionStatus
+    roundNumber: number
     score: number
+    totalTurnNumber: number
 }

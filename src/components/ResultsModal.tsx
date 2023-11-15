@@ -1,32 +1,54 @@
-import { Player } from '@/types'
+import { GameContext } from '@/app/game-provider'
 import { StarIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, UseModalProps } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { useReward } from 'react-rewards'
 // @ts-ignore
 import useSound from 'use-sound'
 
-interface ResultsModalProps {
-    players: Player[]
-    startNewGame: () => void
-}
-
-type Props = ResultsModalProps & UseModalProps
+type Props = UseModalProps
 
 const ResultsModal = ({
-    players,
-    startNewGame,
     isOpen,
     onClose,
 }: Props) => {
+    const { 
+        players,
+        resetGame,
+        getPlayerScore
+    } = useContext(GameContext)
+
     const [playTadaSound] = useSound('/sounds/tada.mp3')
-    
+    const { reward: resultsReward } = useReward('resultsReward', 'balloons', {
+        elementCount: 20,
+        spread: 90,
+        startVelocity: 5,
+        zIndex: 2000,
+        elementSize: 30
+    });
+
+    const playersScoreList = players.map((player) => {
+        return {
+            name: player.name,
+            score: getPlayerScore(player.id)
+        }
+    }).sort((a,b) => b.score - a.score)
+
     const highestScore = (): number => {
-        return Math.max(...players.map(player => player.score))
+        return Math.max(...playersScoreList.map(player => player.score))
+    }
+
+    const handleNewGameButtonClick = () => {
+        resetGame()
+        onClose()
     }
 
     useEffect(() => {
         if (isOpen) {
             playTadaSound()
+            setTimeout(() => {
+                resultsReward()
+            }, 500)
         }
     }, [isOpen, playTadaSound])
 
@@ -42,8 +64,8 @@ const ResultsModal = ({
             <ModalContent bg='gray.800' mx={4}>
                 <ModalHeader>Battle Results</ModalHeader>
                 <ModalBody>
-                    {[...players].sort((a,b) => b.score - a.score).map((player, index) => (
-                        <Flex key={player.id} justifyContent='space-between' alignItems='center'>
+                    {playersScoreList.map((player, index) => (
+                        <Flex key={player.name} justifyContent='space-between' alignItems='center'>
                             <Flex 
                                 fontSize='x-large'
                                 fontWeight='bold'
@@ -56,12 +78,12 @@ const ResultsModal = ({
                         </Flex>
                     ))}
                 <Flex justifyContent='center'>
-                    <Box id="balloons" />
+                    <Box id='resultsReward'/>
                 </Flex>
                 </ModalBody>
                 <ModalFooter justifyContent='center'>
                     <Button 
-                        onClick={startNewGame} 
+                        onClick={handleNewGameButtonClick} 
                         variant='solid' 
                         colorScheme='cyan' 
                         size='lg' 

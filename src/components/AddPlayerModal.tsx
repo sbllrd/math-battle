@@ -1,25 +1,24 @@
+import { GameContext } from '@/app/game-provider'
 import { Player } from '@/types'
-import { StarIcon } from '@chakra-ui/icons'
-import { Box, Button, Flex, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UseModalProps } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
+import { Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UseModalProps } from '@chakra-ui/react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
-interface AddPlayerModalProps {
-    addNewPlayer: (name: string) => void
-}
-
-type Props = AddPlayerModalProps & UseModalProps
+type Props = UseModalProps
 
 const AddPlayerModal = ({
-    addNewPlayer,
     isOpen,
     onClose,
 }: Props) => {
+    const {updatePlayers } = useContext(GameContext)
+
     const [playerName, setPlayerName] = useState('')
+
     const handleAddPlayerButtonClick = () => {
         if (!playerName) return
-        addNewPlayer(playerName)
+        updatePlayers({playerName, action: 'add'})
         onClose()
     }
+
     useEffect(() => {
         setPlayerName('')
     }, [isOpen])
@@ -29,7 +28,9 @@ const AddPlayerModal = ({
             handleAddPlayerButtonClick()
         }
     }
+
     const initialRef = useRef(null)
+
     return (
         <Modal 
             initialFocusRef={initialRef}

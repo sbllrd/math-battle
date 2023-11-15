@@ -1,20 +1,18 @@
-import { GameSettings } from "@/types"
 import formatSnakeCaseToString from "@/utils/format_snake_case_to_string"
-import { ArrowRightIcon, SettingsIcon } from "@chakra-ui/icons"
-import { Button, Grid, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
+import { Button, Grid, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react"
+import SettingsModal from "./SettingsModal"
+import { useContext } from "react"
+import { GameContext } from "@/app/game-provider"
+import { SettingsIcon } from "@chakra-ui/icons"
 
-interface SettingsListProps {
-    handleSettingsButtonClick: () => void
-    settings: GameSettings
-}
-const SettingsList = ({ handleSettingsButtonClick, settings }: SettingsListProps) => {
+const SettingsList = () => {
+    const { isOpen: isSettingsModalOpen, onOpen: openSettingsModal, onClose: closeSettingsModal } = useDisclosure()
+    const { gameSettings, updateGameSettings } = useContext(GameContext)
     return (
-        <Grid
-            borderTopColor='gray.700' 
-            borderTopStyle='dotted'
-            borderTopWidth='3px'
-            pt={3}  
+        <Grid 
             gap={3}
+            py={4}
+            my={4}
         >
             <Heading size='xs'>SETTINGS</Heading>
             <TableContainer>
@@ -26,7 +24,7 @@ const SettingsList = ({ handleSettingsButtonClick, settings }: SettingsListProps
                     </Tr>
                     </Thead>
                     <Tbody>
-                    {Object.entries(settings).map(([key, value]) => (
+                    {Object.entries(gameSettings).map(([key, value]) => (
                         <Tr key={key}>
                             <Td>{formatSnakeCaseToString(key)}</Td>
                             <Td fontWeight='bold'>{typeof value == 'object' ? value.join(', ') : value}</Td>
@@ -39,11 +37,17 @@ const SettingsList = ({ handleSettingsButtonClick, settings }: SettingsListProps
                 colorScheme='cyan'
                 variant='outline'
                 size='sm'
-                onClick={handleSettingsButtonClick}
+                onClick={openSettingsModal}
                 leftIcon={<SettingsIcon />}
             >
                 Change Settings
             </Button>
+            <SettingsModal
+                settings={gameSettings}
+                handleSettingsUpdate={updateGameSettings}
+                isOpen={isSettingsModalOpen}
+                onClose={closeSettingsModal}
+            />
         </Grid>
     )
 }

@@ -1,40 +1,49 @@
-import { Player } from "@/types"
+import { GameStatus, Player } from "@/types"
 import { AddIcon, ChevronRightIcon } from "@chakra-ui/icons"
-import {  Button, Grid, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
+import {  Button, Grid, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react"
+import AddPlayerModal from "./AddPlayerModal"
+import { useContext } from "react"
+import { GameContext } from "@/app/game-provider"
 
-interface PlayersListProps {
-    currentPlayerIndex: number
-    handleAddPlayerButtonClick: () => void
-    players: Player[]
-    allowAddNewPlayer: boolean
-}
-const PlayersList = ({ allowAddNewPlayer, currentPlayerIndex, handleAddPlayerButtonClick, players }: PlayersListProps) => {
+const PlayersList = () => {
+    const { isOpen: isAddPlayerModalOpen, onOpen: openAddPlayerModal, onClose: closeAddPlayerModal } = useDisclosure()
+    const { 
+        currentPlayerTurn, 
+        getPlayerScore,
+        players,
+        gameStatus
+    } = useContext(GameContext)
+
+    const currentPlayer = currentPlayerTurn?.player
+    const isNewGame = gameStatus === GameStatus.newGame
+
     return (
         <Grid
-            borderTopColor='gray.700' 
-            borderTopStyle='dotted'
-            borderTopWidth='3px'
-            py={3}
-            gap={3}
+            gap={3} 
+            py={4}
+            my={4}
+            borderBottomColor='gray.700'
+            borderBottomStyle='dotted'
+            borderBottomWidth='3px'
         >
             {players.length > 0 &&
                 <>
-                    {allowAddNewPlayer && <Heading size='xs'>PLAYERS</Heading>}
+                    {isNewGame && <Heading size='xs'>PLAYERS</Heading>}
                     <TableContainer>
                         <Table size='xs' fontSize='small' variant='unstyled'>
                             <Thead color='gray.600' fontSize='xs'>
                             <Tr>
                                 <Th width='10px'></Th>
                                 <Th>Name</Th>
-                                <Th>Score</Th>
+                                {!isNewGame && <Th>Score</Th>}
                             </Tr>
                             </Thead>
                             <Tbody>
-                            {players?.map(({ id, name, score }, index) => (
+                            {players?.map(({ id, name }, index) => (
                                 <Tr key={id}>
-                                    <Td width='10px'>{index === currentPlayerIndex && <ChevronRightIcon w={4} h={4} />}</Td>
+                                    <Td width='10px'>{id === currentPlayer?.id && <ChevronRightIcon w={4} h={4} />}</Td>
                                     <Td>{name}</Td>
-                                    <Td fontWeight='bold'>{score}</Td>
+                                    {!isNewGame && <Td fontWeight='bold'>{getPlayerScore(id)}</Td>}
                                 </Tr>
                             ))}
                             </Tbody>
@@ -42,17 +51,21 @@ const PlayersList = ({ allowAddNewPlayer, currentPlayerIndex, handleAddPlayerBut
                     </TableContainer>
                 </>
             }
-            {allowAddNewPlayer && 
+            {isNewGame && 
                 <Button 
                     colorScheme='cyan'
                     variant='solid'
                     size='md'
-                    onClick={handleAddPlayerButtonClick}
+                    onClick={openAddPlayerModal}
                     leftIcon={<AddIcon />}
                 >
                     Add New Player
                 </Button>
             }
+            <AddPlayerModal
+                isOpen={isAddPlayerModalOpen}
+                onClose={closeAddPlayerModal}
+            />
         </Grid>
     )
 }

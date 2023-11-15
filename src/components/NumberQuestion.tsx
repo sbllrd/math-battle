@@ -8,13 +8,9 @@ interface NumberQuestionProps {
 }
 
 const NumberQuestion = ({ question }: NumberQuestionProps) => {
-    const [verticalOrientation, setVerticalOrientation] = useState(true)
-    const handleNumbersOnClick = () => {
-        setVerticalOrientation(!verticalOrientation)
-    }
     return (
         <Center>
-            <Grid gap={0} onClick={handleNumbersOnClick}>
+            <Grid gap={0}>
                 {question?.numbers?.map((number, index) => (
                     <Grid 
                         key={index} 
