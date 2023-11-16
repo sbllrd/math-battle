@@ -7,15 +7,17 @@ interface Props {
     questionStatus: QuestionStatus
     correctAnswer: Question['correctAnswer']
     submitAnswer: (answer: number) => void
+    numberOfOptions?: number
 }
 
 const NumberMultipleChoiceAnswer = ({
     questionStatus,
     correctAnswer,
-    submitAnswer
+    submitAnswer,
+    numberOfOptions = 4
 }: Props) => {
     const [selectedOption, setSelectedOption] = useState<number>()
-    const numberOptions = useMemo(() => generateNumberMultipleChoiceOptions(correctAnswer, 6), [correctAnswer])
+    const numberOptions = useMemo(() => generateNumberMultipleChoiceOptions(correctAnswer, numberOfOptions), [correctAnswer])
 
     const handleSubmitAnswer = (answer: number) => {
         if ( questionStatus === QuestionStatus.inProgress) {

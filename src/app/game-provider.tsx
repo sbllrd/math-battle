@@ -141,13 +141,21 @@ function GameProvider({ children }: GameProviderProps) {
                     answer_format: value
                 })
                 break
+            case 'number_of_options':
+                    setGameSettings({
+                        ...gameSettings,
+                        number_of_options: Number(value)
+                    })
+                    break
             case 'min_number':
+                if (Number(value) < 0 || Number(value) > 99999) break
                 setGameSettings({
                     ...gameSettings,
                     min_number: Number(value)
                 })
                 break
             case 'max_number':
+                if (Number(value) < 0 || Number(value) > 99999) break
                 setGameSettings({
                     ...gameSettings,
                     max_number: Number(value)
@@ -161,7 +169,7 @@ function GameProvider({ children }: GameProviderProps) {
                 })
                 break
             case 'rounds_count':
-                if (Number(value) < 1) break
+                if (Number(value) < 1 || Number(value) > 99) break
                 setGameSettings({
                     ...gameSettings,
                     rounds_count: Number(value)

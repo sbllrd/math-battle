@@ -40,6 +40,21 @@ const SettingsModal = ({
                                 ))}
                             </Select>
                         </GridItem>
+                        {settings.answer_format === AnswerFormat.multiple_choice &&
+                            <GridItem>
+                                <Text fontSize='small' fontWeight='bold' mb={2}>Number of multiple choice options</Text>
+                                <NumberInput 
+                                    value={settings.number_of_options}
+                                    onChange={(value) => updateGameSettings('number_of_options', value)} 
+                                >
+                                    <NumberInputField />
+                                    <NumberInputStepper bg='white'>
+                                        <NumberIncrementStepper />
+                                        <NumberDecrementStepper />
+                                    </NumberInputStepper>
+                                </NumberInput>
+                            </GridItem>
+                        }
                         <GridItem>
                             <Text fontSize='small' fontWeight='bold' mb={2}>Possible numbers range</Text>
                             <HStack spacing={2}>

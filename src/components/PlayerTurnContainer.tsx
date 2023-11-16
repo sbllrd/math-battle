@@ -111,6 +111,7 @@ const PlayerTurnContainer = () => {
                     questionStatus={questionStatus}
                     correctAnswer={question.correctAnswer}
                     submitAnswer={handleSubmitAnswer}
+                    numberOfOptions={gameSettings.number_of_options}
                 />
             }
             {gameSettings.show_answers && <Box textAlign='center' fontSize='larger'>Answer: <b>{currentPlayerTurn.question.correctAnswer}</b></Box>}

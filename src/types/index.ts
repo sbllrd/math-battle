@@ -29,12 +29,13 @@ export enum AnswerFormat {
 }
 
 export interface GameSettings {
-    allow_negatives: boolean
     answer_format: AnswerFormat
+    number_of_options?: number
     max_number: number
     min_number: number
     number_count: number
     operations: Operation[]
+    allow_negatives?: boolean
     rounds_count: number
     show_answers?: boolean
 }
