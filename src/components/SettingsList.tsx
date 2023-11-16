@@ -27,7 +27,7 @@ const SettingsList = () => {
                     {Object.entries(gameSettings).map(([key, value]) => (
                         <Tr key={key}>
                             <Td>{formatSnakeCaseToString(key)}</Td>
-                            <Td fontWeight='bold'>{typeof value == 'object' ? value.join(', ') : value}</Td>
+                            <Td fontWeight='bold'>{typeof value == 'object' ? value.join(', ') : String(value)}</Td>
                         </Tr>
                     ))}
                     </Tbody>
@@ -44,7 +44,6 @@ const SettingsList = () => {
             </Button>
             <SettingsModal
                 settings={gameSettings}
-                handleSettingsUpdate={updateGameSettings}
                 isOpen={isSettingsModalOpen}
                 onClose={closeSettingsModal}
             />

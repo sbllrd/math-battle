@@ -24,7 +24,7 @@ interface AnswerInputProps {
 const NumberAnswerInput = ({ questionStatus, correctAnswer, submitAnswer }: AnswerInputProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const [inputValue, setInputValue] = useState<string>('')
-    const maxLength = Math.max(4, correctAnswer.toString().length)
+    const maxLength = Math.max(4, correctAnswer.toString().length + 1)
     
     const handleKeyPress = (event: any) => {
         if(event.key === 'Enter'){
@@ -32,15 +32,19 @@ const NumberAnswerInput = ({ questionStatus, correctAnswer, submitAnswer }: Answ
         }
     }
 
+    const validateInputValue = () => {
+        return !!inputValue && inputValue !== '-'
+    }
+
     const handleSubmitAnswer = () => {
-        if ( questionStatus === QuestionStatus.inProgress && inputValue) {
+        if ( questionStatus === QuestionStatus.inProgress && validateInputValue() ) {
             submitAnswer(Number(inputValue))
         }
     }
 
     const handleOnChange = (event: any) => {
         const newValue = event.currentTarget.value
-        newValue.length <= maxLength && setInputValue(newValue.replace(/\D/g, ''))
+        newValue.length <= maxLength && setInputValue(newValue.replace(/^-[^\d]/g, ''))
     }
 
     useEffect(() => {

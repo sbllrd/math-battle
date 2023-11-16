@@ -113,7 +113,7 @@ const PlayerTurnContainer = () => {
                     submitAnswer={handleSubmitAnswer}
                 />
             }
-
+            {gameSettings.show_answers && <Box textAlign='center' fontSize='larger'>Answer: <b>{currentPlayerTurn.question.correctAnswer}</b></Box>}
             <Flex justifyContent='center'>
                 <Box id="answerReward" />
             </Flex>

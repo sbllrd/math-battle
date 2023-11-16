@@ -29,11 +29,13 @@ export enum AnswerFormat {
 
 export interface GameSettings {
     answer_format: AnswerFormat
+    allow_negatives: boolean
     max_number: number
     min_number: number
     number_count: number
     operations: Operation[]
     rounds_count: number
+    show_answers?: boolean
 }
 
 export interface Player {

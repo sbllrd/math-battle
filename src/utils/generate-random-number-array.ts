@@ -12,5 +12,5 @@ export const generateRandomNumbersArray = ({
     min_number,
     max_number
 }: Params): number[] => {
-    return Array.from({ length: number_count }, () => generateRandomNumberInRange(min_number, max_number)).sort((a,b) => b-a);
+    return Array.from({ length: number_count }, () => generateRandomNumberInRange(min_number, max_number));
 }

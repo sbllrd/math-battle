@@ -128,8 +128,13 @@ function GameProvider({ children }: GameProviderProps) {
     }
 
     const updateGameSettings = (settingsName: string, value: any) => {
-        if (!value || !settingsName) return
         switch (settingsName) {
+            case 'allow_negatives':
+                setGameSettings({
+                    ...gameSettings,
+                    allow_negatives: value
+                })
+                break
             case 'answer_format':
                 setGameSettings({
                     ...gameSettings,

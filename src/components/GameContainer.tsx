@@ -47,15 +47,12 @@ const GameContainer = () => {
             {gameStatus !== GameStatus.newGame && 
                 <PlayerTurnContainer />
             }
-
             {gameStatus !== GameStatus.newGame &&
                 <Button 
                     size='xs' 
                     variant='ghost' 
-                    colorScheme='cyan' 
-                    position='fixed' 
-                    bottom={2} 
-                    left={0} 
+                    colorScheme='cyan'
+                    mt={8}
                     width='full'
                     onClick={resetGame}
                     py={2}
