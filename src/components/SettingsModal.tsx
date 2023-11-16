@@ -31,7 +31,6 @@ const SettingsModal = ({
                         <GridItem>
                             <Text fontSize='small' fontWeight='bold' mb={2}>Answer format</Text>
                             <Select 
-                                placeholder='Select answer format' 
                                 defaultValue={settings.answer_format} 
                                 onChange={(event) => handleSettingsUpdate('answer_format', event.target.value)}
                             >

@@ -128,6 +128,7 @@ function GameProvider({ children }: GameProviderProps) {
     }
 
     const updateGameSettings = (settingsName: string, value: any) => {
+        if (!value || !settingsName) return
         switch (settingsName) {
             case 'answer_format':
                 setGameSettings({
