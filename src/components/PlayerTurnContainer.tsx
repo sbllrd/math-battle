@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import { GameStatus, QuestionStatus } from "@/types"
+import { AnswerFormat, GameStatus, QuestionStatus } from "@/types"
 
 import { Box, Button, Center, Flex, Grid, Heading, Text, VStack, useDisclosure } from "@chakra-ui/react"
 import { ArrowForwardIcon, TimeIcon } from "@chakra-ui/icons"
@@ -16,6 +16,7 @@ import AnimatedIcon from "./AnimatedIcon"
 import NumberAnswerInput from "./NumberAnswerInput"
 import NumberQuestion from "./NumberQuestion"
 import ResultsModal from "./ResultsModal"
+import NumberMultipleChoiceAnswer from "./NumberMultipleChoiceAnswer"
 
 
 
@@ -97,11 +98,22 @@ const PlayerTurnContainer = () => {
                 <Heading textAlign='center' fontSize='x-large'>{player.name}&apos;s turn:</Heading>
             </VStack>
             <NumberQuestion question={question} />
-            <NumberAnswerInput 
-                questionStatus={questionStatus}
-                correctAnswer={question.correctAnswer}
-                onSubmit={handleSubmitAnswer}
-            /> 
+            
+            {gameSettings.answer_format === AnswerFormat.number_input &&
+                <NumberAnswerInput 
+                    questionStatus={questionStatus}
+                    correctAnswer={question.correctAnswer}
+                    submitAnswer={handleSubmitAnswer}
+                />
+            }
+            {gameSettings.answer_format === AnswerFormat.multiple_choice &&
+                <NumberMultipleChoiceAnswer
+                    questionStatus={questionStatus}
+                    correctAnswer={question.correctAnswer}
+                    submitAnswer={handleSubmitAnswer}
+                />
+            }
+
             <Flex justifyContent='center'>
                 <Box id="answerReward" />
             </Flex>

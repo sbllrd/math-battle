@@ -1,6 +1,7 @@
-import { GameSettings, Operation, Player } from "@/types"
+import { AnswerFormat, GameSettings, Operation, Player } from "@/types"
 
 export const DEFAULT_GAME_SETTINGS: GameSettings = {
+    answer_format: AnswerFormat.multiple_choice,
     min_number: 50,
     max_number: 300,
     number_count: 2,
@@ -9,8 +10,9 @@ export const DEFAULT_GAME_SETTINGS: GameSettings = {
 }
 
 export const TEST_GAME_SETTINGS: GameSettings = {
-    min_number: 1,
-    max_number: 1,
+    answer_format: AnswerFormat.multiple_choice,
+    min_number: 50,
+    max_number: 300,
     number_count: 2,
     operations: [Operation.addition],
     rounds_count: 5

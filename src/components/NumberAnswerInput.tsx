@@ -18,10 +18,10 @@ const questionStatusStyles = {
 interface AnswerInputProps {
     questionStatus: QuestionStatus
     correctAnswer: Question['correctAnswer']
-    onSubmit: (answer: number) => void
+    submitAnswer: (answer: number) => void
 }
 
-const NumberAnswerInput = ({ questionStatus, correctAnswer, onSubmit }: AnswerInputProps) => {
+const NumberAnswerInput = ({ questionStatus, correctAnswer, submitAnswer }: AnswerInputProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const [inputValue, setInputValue] = useState<string>('')
     const maxLength = Math.max(4, correctAnswer.toString().length)
@@ -34,7 +34,7 @@ const NumberAnswerInput = ({ questionStatus, correctAnswer, onSubmit }: AnswerIn
 
     const handleSubmitAnswer = () => {
         if ( questionStatus === QuestionStatus.inProgress && inputValue) {
-            onSubmit(Number(inputValue))
+            submitAnswer(Number(inputValue))
         }
     }
 

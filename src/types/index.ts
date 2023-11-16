@@ -12,8 +12,8 @@ export enum QuestionStatus {
 }
 
 export enum Operation {
-    addition = 'addition',
-    subtraction = 'subtraction'
+    addition = 'Addition (+)',
+    subtraction = 'Subtraction (-)'
 }
 
 export interface Question {
@@ -22,7 +22,13 @@ export interface Question {
     operation: Operation
 }
 
+export enum AnswerFormat {
+    multiple_choice= 'Multiple Choice',
+    number_input = 'Number Input'
+}
+
 export interface GameSettings {
+    answer_format: AnswerFormat
     max_number: number
     min_number: number
     number_count: number
