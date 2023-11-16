@@ -26,8 +26,8 @@ const SettingsList = () => {
                     <Tbody>
                     {Object.entries(gameSettings).map(([key, value]) => (
                         <Tr key={key}>
-                            <Td>{formatSnakeCaseToString(key)}</Td>
-                            <Td fontWeight='bold'>{typeof value == 'object' ? value.join(', ') : String(value)}</Td>
+                            <Td pr={2} py={1} verticalAlign='top' >{formatSnakeCaseToString(key)}</Td>
+                            <Td whiteSpace='initial' fontWeight='bold'>{typeof value == 'object' ? value.join(', ') : String(value)}</Td>
                         </Tr>
                     ))}
                     </Tbody>

@@ -96,8 +96,9 @@ const SettingsModal = ({
                                 onChange={(value) => updateGameSettings('operations', value)}
                             >
                                 <VStack spacing={2} align='flex-start'>
-                                    <Checkbox value={Operation.addition}>Addition (<AddIcon h={3} />)</Checkbox>
-                                    <Checkbox value={Operation.subtraction}>Subtraction (<MinusIcon h={3} />)</Checkbox>
+                                    {Object.entries(Operation).map(([_, operation]) => (
+                                        <Checkbox key={operation} value={operation}>{operation}</Checkbox>
+                                    ))}
                                 </VStack>
                             </CheckboxGroup>
                         </GridItem>

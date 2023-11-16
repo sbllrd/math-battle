@@ -15,7 +15,7 @@ const NumberMultipleChoiceAnswer = ({
     submitAnswer
 }: Props) => {
     const [selectedOption, setSelectedOption] = useState<number>()
-    const numberOptions = useMemo(() => generateNumberMultipleChoiceOptions(correctAnswer, 4), [correctAnswer])
+    const numberOptions = useMemo(() => generateNumberMultipleChoiceOptions(correctAnswer, 6), [correctAnswer])
 
     const handleSubmitAnswer = (answer: number) => {
         if ( questionStatus === QuestionStatus.inProgress) {

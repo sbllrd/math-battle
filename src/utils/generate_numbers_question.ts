@@ -11,7 +11,10 @@ export const generateNumbersQuestion = (gameSettings: GameSettings): Question =>
         min_number,
         max_number
     })
-    const shouldSort = operation === Operation.addition || (operation === Operation.subtraction && !gameSettings.allow_negatives)
+    const shouldSort = operation === Operation.addition 
+        || operation === Operation.multiplication 
+        || (operation === Operation.subtraction && !gameSettings.allow_negatives)
+
     const sortedNumbers = shouldSort ? numbers.sort((a,b) => b-a) : numbers
     const correctAnswer = getCorrectAnswer(sortedNumbers, operation);
     return {

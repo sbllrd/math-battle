@@ -13,7 +13,8 @@ export enum QuestionStatus {
 
 export enum Operation {
     addition = 'Addition (+)',
-    subtraction = 'Subtraction (-)'
+    multiplication = 'Multiplication (x)',
+    subtraction = 'Subtraction (-)',
 }
 
 export interface Question {
@@ -28,8 +29,8 @@ export enum AnswerFormat {
 }
 
 export interface GameSettings {
-    answer_format: AnswerFormat
     allow_negatives: boolean
+    answer_format: AnswerFormat
     max_number: number
     min_number: number
     number_count: number
