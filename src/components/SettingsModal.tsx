@@ -1,6 +1,6 @@
-import { Box, Button, Checkbox, CheckboxGroup, Grid, GridItem, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Text, UseModalProps, VStack } from '@chakra-ui/react'
+import { Box, Button, Checkbox, CheckboxGroup, Grid, GridItem, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, Text, UseModalProps, VStack } from '@chakra-ui/react'
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
-import { GameSettings, Operation } from '@/types'
+import { AnswerFormat, GameSettings, Operation } from '@/types'
 
 interface SettingsModalProps {
     handleSettingsUpdate: (settingsName: string, value: any) => void
@@ -28,6 +28,18 @@ const SettingsModal = ({
                 <ModalCloseButton />
                 <ModalBody>
                     <Grid gap={6}>
+                        <GridItem>
+                            <Text fontSize='small' fontWeight='bold' mb={2}>Answer format</Text>
+                            <Select 
+                                placeholder='Select answer format' 
+                                defaultValue={settings.answer_format} 
+                                onChange={(event) => handleSettingsUpdate('answer_format', event.target.value)}
+                            >
+                                {Object.entries(AnswerFormat).map(([key, answerFormat]) => (
+                                    <option key={key} value={answerFormat}>{answerFormat}</option>
+                                ))}
+                            </Select>
+                        </GridItem>
                         <GridItem>
                             <Text fontSize='small' fontWeight='bold' mb={2}>Possible numbers range</Text>
                             <HStack spacing={2}>

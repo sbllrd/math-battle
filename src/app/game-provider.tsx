@@ -129,6 +129,12 @@ function GameProvider({ children }: GameProviderProps) {
 
     const updateGameSettings = (settingsName: string, value: any) => {
         switch (settingsName) {
+            case 'answer_format':
+                setGameSettings({
+                    ...gameSettings,
+                    answer_format: value
+                })
+                break
             case 'min_number':
                 setGameSettings({
                     ...gameSettings,

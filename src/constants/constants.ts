@@ -10,7 +10,7 @@ export const DEFAULT_GAME_SETTINGS: GameSettings = {
 }
 
 export const TEST_GAME_SETTINGS: GameSettings = {
-    answer_format: AnswerFormat.multiple_choice,
+    answer_format: AnswerFormat.number_input,
     min_number: 50,
     max_number: 300,
     number_count: 2,
