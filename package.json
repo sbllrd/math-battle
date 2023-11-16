@@ -17,6 +17,7 @@
     "@fontsource/press-start-2p": "^5.0.17",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/supabase-js": "^2.38.4",
+    "@vercel/analytics": "^1.1.1",
     "framer-motion": "^10.16.4",
     "next": "14.0.2",
     "react": "^18",
